@@ -1,0 +1,26 @@
+# AWS CodeBuild - Construye la imagen Docker y la sube a ECR
+# No necesitas Docker en tu PC; esto se ejecuta en la nube.
+
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Iniciando sesión en Amazon ECR...
+      - export AWS_REGION=${AWS_DEFAULT_REGION:-us-east-1}
+      - export REPOSITORY_URI=$(aws ecr describe-repositories --repository-names $ECR_REPO_NAME --query 'repositories[0].repositoryUri' --output text)
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $(echo $REPOSITORY_URI | cut -d/ -f1)
+      - export IMAGE_TAG=latest
+  build:
+    commands:
+      - echo Construyendo la imagen Docker...
+      - docker build -t $REPOSITORY_URI:$IMAGE_TAG .
+  post_build:
+    commands:
+      - echo Subiendo imagen a ECR...
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
+      - echo Imagen URI = $REPOSITORY_URI:$IMAGE_TAG
+      - echo '{"name":"api-multiagente","imageUri":"'$REPOSITORY_URI:$IMAGE_TAG'"}' > imagedefinitions.json
+
+artifacts:
+  files: imagedefinitions.json

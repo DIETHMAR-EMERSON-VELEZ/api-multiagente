@@ -1,0 +1,36 @@
+{
+  "name": "financial-supervision-api",
+  "version": "1.1.0",
+  "description": "API REST profesional para Central Gerencial de Supervisión Financiera - Solo lectura",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "firestore",
+    "api-rest",
+    "financial",
+    "audit",
+    "supervision",
+    "central",
+    "jwt",
+    "express"
+  ],
+  "author": "Emisor Tick",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.3.1",
+    "firebase-admin": "^12.0.0",
+    "helmet": "^8.1.0",
+    "jsonwebtoken": "^9.0.3"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  }
+}

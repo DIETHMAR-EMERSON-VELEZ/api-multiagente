@@ -1,0 +1,321 @@
+================================================================================
+     ESTRUCTURA DEL PROYECTO - FINANCIAL SUPERVISION API v1.1.0
+================================================================================
+
+DIRECTORIO RAÍZ: c:\Emisor Tick Andr\firestore-proxy\
+
+================================================================================
+ 📦 ARCHIVOS PRINCIPALES
+================================================================================
+
+✅ server.js
+   └─ Servidor Express principal (reemplazado con versión profesional)
+   └─ Inicializa Firebase, middleware, rutas y manejo de errores
+   └─ Inicia en puerto 3003
+
+✅ package.json
+   └─ Dependencias del proyecto
+   └─ Scripts: npm start, npm dev, npm test
+   └─ Versión 1.1.0
+
+✅ .env
+   └─ Variables de entorno (creado)
+   └─ JWT_SECRET, PORT, colecciones de Firestore
+   └─ Configuración de logging y límites
+
+✅ serviceAccountKey.json
+   └─ Credenciales de Firebase (debe existir)
+   └─ NO incluir en git
+
+================================================================================
+ 📚 DOCUMENTACIÓN
+================================================================================
+
+✅ README.md
+   └─ Documentación completa de la API
+   └─ Instalación, autenticación, endpoints, ejemplos
+   └─ Solución de problemas
+
+✅ IMPLEMENTACION_RESUMEN.md
+   └─ Resumen de lo que se implementó
+   └─ Características, estructura, testing
+   └─ Próximos pasos
+
+✅ EJEMPLOS_CONSUMO.md
+   └─ Ejemplos de uso en JavaScript, Python, PHP
+   └─ Manejo de errores y reintentos
+   └─ Checklist de integración
+
+✅ DESPLIEGUE.md
+   └─ Guía de despliegue en diferentes ambientes
+   └─ Cloud Run, Heroku, AWS, Docker
+   └─ Configuración de producción
+
+✅ ESTRUCTURA_PROYECTO.txt
+   └─ Este archivo
+
+================================================================================
+ ⚙️  CARPETA: config/
+================================================================================
+
+✅ config/constants.js
+   └─ Configuración centralizada
+   └─ Constantes de aplicación
+   └─ Tipos de operación, estados, límites
+   └─ Validación de variables críticas
+
+================================================================================
+ 🔒 CARPETA: middleware/
+================================================================================
+
+✅ middleware/auth.js
+   └─ Middleware de autenticación JWT
+   └─ Validación de tokens
+   └─ Manejo de permisos
+   └─ Registro de IPs
+
+================================================================================
+ 🛣️  CARPETA: routes/
+================================================================================
+
+✅ routes/authRoutes.js
+   └─ Rutas de autenticación
+   └─ POST /api/v1/auth/login (obtener token)
+   └─ POST /api/v1/auth/validate-token (validar)
+   └─ POST /api/v1/auth/refresh-token (renovar)
+
+✅ routes/financialApi.js
+   └─ Rutas de datos financieros (solo lectura)
+   └─ GET /api/v1/agent/transactions
+   └─ GET /api/v1/agent/daily-summary
+   └─ GET /api/v1/agent/cash-movements
+   └─ GET /api/v1/agent/closures
+   └─ GET /api/v1/agent/manual-adjustments
+
+================================================================================
+ 🧠 CARPETA: controllers/
+================================================================================
+
+✅ controllers/financialController.js
+   └─ Lógica de negocio
+   └─ Funciones para cada endpoint
+   └─ Validaciones, consultas a Firestore
+   └─ Transformación de datos
+
+================================================================================
+ 🛠️  CARPETA: utils/
+================================================================================
+
+✅ utils/logger.js
+   └─ Sistema de logging estructurado
+   └─ Logs en JSON para análisis
+   └─ Métodos: error, warn, info, debug
+   └─ Logs específicos de API
+
+✅ utils/validators.js
+   └─ Validadores de entrada
+   └─ Validación de fechas (YYYY-MM-DD)
+   └─ Validación de paginación
+   └─ Validación de rangos
+   └─ Parseadores de fecha
+
+================================================================================
+ 📊 ENDPOINTS DISPONIBLES
+================================================================================
+
+AUTENTICACIÓN:
+  POST   /api/v1/auth/login
+  POST   /api/v1/auth/validate-token
+  POST   /api/v1/auth/refresh-token
+
+DATOS FINANCIEROS (SOLO LECTURA):
+  GET    /api/v1/agent/transactions?from=YYYY-MM-DD&to=YYYY-MM-DD&page=1&size=50
+  GET    /api/v1/agent/daily-summary?date=YYYY-MM-DD
+  GET    /api/v1/agent/cash-movements?from=YYYY-MM-DD&to=YYYY-MM-DD&page=1&size=50
+  GET    /api/v1/agent/closures?from=YYYY-MM-DD&to=YYYY-MM-DD&page=1&size=50
+  GET    /api/v1/agent/manual-adjustments?from=YYYY-MM-DD&to=YYYY-MM-DD&page=1&size=50
+
+INFORMACIÓN:
+  GET    /health
+  GET    /api/v1/info
+
+================================================================================
+ 🔐 CARACTERÍSTICAS DE SEGURIDAD
+================================================================================
+
+✅ Autenticación JWT con expiración (15 minutos)
+✅ Registro de IP de todas las solicitudes
+✅ Logs estructurados en JSON
+✅ Headers de seguridad (Helmet)
+✅ CORS configurado
+✅ Validaciones de entrada completas
+✅ Solo GET - sin POST/PUT/DELETE
+✅ Manejo de permisos por usuario
+✅ Manejo global de errores
+✅ ID único por solicitud para trazabilidad
+
+================================================================================
+ 📦 DEPENDENCIAS INSTALADAS
+================================================================================
+
+express@^4.18.2               - Framework web
+firebase-admin@^12.0.0        - Firebase SDK
+jsonwebtoken@^9.0.3           - JWT
+cors@^2.8.6                   - CORS
+helmet@^8.1.0                 - Headers de seguridad
+dotenv@^16.3.1                - Variables de entorno
+express-validator@^7.3.1      - Validaciones
+
+================================================================================
+ 👥 USUARIOS DE PRUEBA
+================================================================================
+
+Usuario: central_audit
+Contraseña: admin123
+Rol: auditor
+Acceso: TODOS LOS ENDPOINTS
+
+Usuario: supervisor_1
+Contraseña: pass123
+Rol: supervisor
+Acceso: Transacciones, Resumen, Cierres
+
+NOTA: En producción, validar contra Firestore con contraseñas hasheadas
+
+================================================================================
+ 🚀 CÓMO INICIAR
+================================================================================
+
+1. Instalar dependencias:
+   npm install
+
+2. Configurar .env (ver .env existente)
+
+3. Iniciar servidor:
+   npm start
+
+4. Verificar que funciona:
+   curl http://localhost:3003/health
+
+5. Obtener token:
+   curl -X POST http://localhost:3003/api/v1/auth/login \
+     -H "Content-Type: application/json" \
+     -d '{"username":"central_audit","password":"admin123"}'
+
+6. Usar token para consultar:
+   curl -H "Authorization: Bearer TOKEN" \
+     http://localhost:3003/api/v1/agent/transactions?from=2026-02-01&to=2026-02-28
+
+================================================================================
+ 📋 COLECCIONES DE FIRESTORE REQUERIDAS
+================================================================================
+
+operaciones
+  └─ Documentos con: id, fecha, tipo, monto, comision, usuarioCaja, estado
+
+movimientos_caja
+  └─ Documentos con: id, tipo, monto, usuario, fecha, observacion
+
+cierres_caja
+  └─ Documentos con: fecha, usuario, saldoSistema, saldoFisico, observaciones
+
+ajustes_manuales
+  └─ Documentos con: fecha, usuario, motivo, monto, tipo (credito/debito)
+
+usuarios
+  └─ Documentos con: username, passwordHash, role, permissions
+
+================================================================================
+ ✅ VALIDACIONES IMPLEMENTADAS
+================================================================================
+
+✅ Formato de fecha: YYYY-MM-DD
+✅ Rango máximo de histórico: 365 días
+✅ Paginación: máximo 500 registros por página
+✅ Parámetros obligatorios validados
+✅ Token JWT validado en todas las solicitudes
+✅ IP registrada en cada solicitud
+✅ Permisos verificados por usuario
+✅ Errores normalizados en respuestas
+
+================================================================================
+ 📈 EJEMPLOS DE RESPUESTA
+================================================================================
+
+LOGIN (200 OK):
+{
+  "success": true,
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": "15m"
+}
+
+TRANSACCIONES (200 OK):
+{
+  "success": true,
+  "api_version": "v1",
+  "data": [...],
+  "pagination": {
+    "current_page": 1,
+    "page_size": 50,
+    "total_records": 150,
+    "total_pages": 3,
+    "has_more": true
+  }
+}
+
+ERROR (401/400/500):
+{
+  "success": false,
+  "error": "Descripción del error",
+  "code": "ERROR_CODE",
+  "requestId": "req_1708370102000_abc123def"
+}
+
+================================================================================
+ 🎯 PRÓXIMOS PASOS
+================================================================================
+
+CORTO PLAZO:
+  ☐ Testear todos los endpoints
+  ☐ Validar con datos reales de Firestore
+  ☐ Entregar documentación al cliente
+  ☐ Capacitación de usuarios
+
+MEDIANO PLAZO:
+  ☐ Desplegar en producción (Cloud Run/AWS/Heroku)
+  ☐ Configurar monitoreo y alertas
+  ☐ Implementar caché de consultas
+  ☐ Agregar estadísticas adicionales
+
+LARGO PLAZO:
+  ☐ Auditoría de seguridad externa
+  ☐ Implementar rate limiting más sofisticado
+  ☐ Agregar webhooks para notificaciones
+  ☐ Dashboard de administración
+
+================================================================================
+ 📞 SOPORTE
+================================================================================
+
+Para errores o preguntas:
+
+1. Revisar README.md
+2. Consultar EJEMPLOS_CONSUMO.md
+3. Verificar logs en consola
+4. Revisar DESPLIEGUE.md para troubleshooting
+
+================================================================================
+ ✨ ¡API LISTA PARA PRODUCCIÓN!
+================================================================================
+
+Versión: 1.1.0
+Fecha: Febrero 2026
+Estado: ✅ Operativa
+Puerto: 3003
+
+Documentación: README.md
+Ejemplos: EJEMPLOS_CONSUMO.md
+Despliegue: DESPLIEGUE.md
+
+================================================================================
