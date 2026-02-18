@@ -6,3 +6,6 @@ serviceAccountKey.json
 *.pem
 .DS_Store
 npm-debug.log
+
+# Documentación - no subir a GitHub
+*.md
