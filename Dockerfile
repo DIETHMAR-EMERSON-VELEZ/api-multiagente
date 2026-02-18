@@ -6,8 +6,8 @@ WORKDIR /app
 # Copiar solo package para aprovechar caché de capas
 COPY package*.json ./
 
-# Instalar dependencias de producción
-RUN npm ci --only=production
+# Instalar dependencias de producción (npm install tolera desincronía con lock file)
+RUN npm install --omit=dev
 
 # Copiar el resto del código (sin node_modules gracias a .dockerignore)
 COPY . .
