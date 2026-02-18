@@ -1,5 +1,5 @@
-# Imagen base Node.js 18
-FROM node:18-slim
+# Imagen base Node.js 18 (desde AWS Public ECR para evitar límite de Docker Hub)
+FROM public.ecr.aws/docker/library/node:18-slim
 
 WORKDIR /app
 
