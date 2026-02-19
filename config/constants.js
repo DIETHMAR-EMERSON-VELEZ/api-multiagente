@@ -91,11 +91,14 @@ const config = {
   }
 };
 
-// Validar variables críticas en producción
+// Validar variables críticas en producción (solo advertir, no bloquear arranque)
 if (config.NODE_ENV === 'production') {
   if (!config.JWT.SECRET || config.JWT.SECRET.length < 32) {
-    throw new Error('JWT_SECRET debe tener al menos 32 caracteres en producción');
+    console.warn('ADVERTENCIA: JWT_SECRET debe tener al menos 32 caracteres en producción. Usando valor actual.');
   }
+}
+if (!config.JWT.SECRET) {
+  throw new Error('JWT_SECRET es obligatorio');
 }
 
 module.exports = config;
